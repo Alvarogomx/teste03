@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário Vovó</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://raw.githubusercontent.com/Alvarogomx/teste03/af38a3eb614b9f5003d904382e888987f206743a/WhatsApp%20Image%202025-06-15%20at%2021.42.27.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Dancing Script', cursive;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .cartaz {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      padding: 30px 50px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .cartaz h1 {
+      color: #d32f2f;
+      font-size: 48px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .cartaz h2 {
+      color: #37474f;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .cartaz p {
+      color: #455a64;
+      font-size: 22px;
+      line-height: 1.6;
+    }
+
+    .coracao {
+      font-size: 30px;
+      color: #e53935;
+      margin-bottom: 10px;
+    }
+
+    .botoes {
+      margin-top: 20px;
+    }
+
+    .botoes button {
+      margin: 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #2980b9;
+      color: white;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .botoes button:hover {
+      background-color: #2573a6;
+    }
+
+    .botoes button:disabled {
+      background: #b2bec3;
+      cursor: not-allowed;
+    }
+
+    #faixa-atual {
+      margin-top: 10px;
+      color: #37474f;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cartaz">
+    <div class="coracao">❤️🎂🎈</div>
+    <h1>Feliz Aniversário Vovó</h1>
+    <h2>Eu te amo muito!</h2>
+    <p>
+      Que seu dia seja cheio de amor, sorrisos e momentos especiais.<br>
+      Você é luz na vida de todos nós, um exemplo de amor, carinho e sabedoria.<br><br>
+      Que Deus te abençoe sempre! 💖
+    </p>
+    <div class="coracao">🎉💖🎁</div>
+
+    <div class="botoes">
+      <button id="faixa1">▶️ Faixa 1</button>
+      <button id="faixa2">▶️ Faixa 2</button>
+      <button id="pausar" style="display:none;">⏸️ Pausar</button>
+    </div>
+    <div id="faixa-atual"></div>
+  </div>
+
+<audio id="audio-faixa1" src="https://raw.githubusercontent.com/Alvarogomx/teste03/af38a3eb614b9f5003d904382e888987f206743a/AUDIO-2025-06-16-07-54-18.m4a"></audio>
+<audio id="audio-faixa2" src="https://raw.githubusercontent.com/Alvarogomx/teste03/af38a3eb614b9f5003d904382e888987f206743a/AUDIO-2025-06-16-07-54-56.m4a"></audio>
+
+  <script>
+    const btnFaixa1 = document.getElementById('faixa1');
+    const btnFaixa2 = document.getElementById('faixa2');
+    const btnPausar = document.getElementById('pausar');
+    const faixaAtual = document.getElementById('faixa-atual');
+    const audio1 = document.getElementById('audio-faixa1');
+    const audio2 = document.getElementById('audio-faixa2');
+
+    let audioTocando = null;
+
+    function tocarFaixa(audio, nome) {
+      if (audioTocando && audioTocando !== audio) {
+        audioTocando.pause();
+        audioTocando.currentTime = 0;
+      }
+      audio.play();
+      audioTocando = audio;
+      faixaAtual.textContent = `Tocando: ${nome}`;
+      btnPausar.style.display = 'inline-block';
+    }
+
+    btnFaixa1.addEventListener('click', () => tocarFaixa(audio1, 'Faixa 1'));
+    btnFaixa2.addEventListener('click', () => tocarFaixa(audio2, 'Faixa 2'));
+
+    btnPausar.addEventListener('click', () => {
+      if (audioTocando) {
+        audioTocando.pause();
+        faixaAtual.textContent = '';
+        btnPausar.style.display = 'none';
+      }
+    });
+
+    [audio1, audio2].forEach(audio => {
+      audio.addEventListener('ended', () => {
+        faixaAtual.textContent = '';
+        btnPausar.style.display = 'none';
+        audioTocando = null;
+      });
+    });
+  </script>
+
+</body>
+</html>
